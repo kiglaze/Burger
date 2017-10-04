@@ -17,27 +17,20 @@ app.set("view engine", "handlebars");
 
 var mysql = require("mysql");
 
-// // var connection = mysql.createConnection({
-// //   host: "localhost",
-// //   user: "",
-// //   password: "",
-// //   database: "burgers_db"
-// // });
-
-// // connection.connect(function(err) {
-// //   if (err) {
-// //     console.error("error connecting: " + err.stack);
-// //     return;
-// //   }
-// //   console.log("connected as id " + connection.threadId);
-// // });
-
-
 var Orm = require("./config/orm.js");
 var orm = new Orm();
 
 app.get("/api/burger", function(req, res) {
-    orm.selectAll(res);
+    orm.selectAll(function(result) {res.json(result);});
+});
+
+app.get("/api/burger/isEaten/:isDevoured", function(req, res) {
+    var isDevoured = req.params.isDevoured;
+    if(isDevoured == 1) {
+        orm.selectEaten(function(result) {res.json(result);});
+    } else if (isDevoured == 0) {
+        orm.selectUneaten(function(result) {res.json(result);});
+    }
 });
 
 app.post("/api/burger", function(req, res) {
@@ -45,46 +38,24 @@ app.post("/api/burger", function(req, res) {
 });
 
 app.put("/api/burger", function(req, res) {
-    console.log(req.body);
     orm.updateOne(req, res);
 });
 
-var uneatenBurgers = 
-[
-  {
-      name: "Big one",
-      isConsumed: false
-  }, 
-  {
-      name: "Lots of pickles one",
-      isConsumed: false
-  }, 
-  {
-      name: "Small one",
-      isConsumed: false
-  }
-];
-
-var eatenBurgers = 
-[
-  {
-      name: "Lettuce one",
-      isConsumed: true
-  }, 
-  {
-      name: "Lots of mustard one",
-      isConsumed: true
-  }, 
-  {
-      name: "Ketchup one",
-      isConsumed: true
-  }
-];
-
 app.get("/index", function(req, res) {
-  res.render("index", {
-    uneatenBurgers: uneatenBurgers,
-    eatenBurgers: eatenBurgers
+  orm.selectAll(function(result) {
+    var uneatenBurgers = [];
+    var eatenBurgers = [];
+    result.forEach(function(row) {
+      if(row.devoured == 0) {
+        uneatenBurgers.push(row);
+      } else {
+        eatenBurgers.push(row);
+      };
+    })
+    res.render("index", {
+      uneatenBurgers: uneatenBurgers,
+      eatenBurgers: eatenBurgers
+    });
   });
 });
 

@@ -9,10 +9,10 @@ connection.connect(function(err) {
 });
 
 var Orm = function() {
-	this.selectAll = function(res) {
+	this.selectAll = function(callback) {
 	    var dbQuery = "SELECT * FROM burgers";
 	    connection.query(dbQuery, function(err, result) {
-	      res.json(result);
+	      callback(result);
 	    });
 	}
 
