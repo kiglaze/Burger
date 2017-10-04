@@ -33,6 +33,22 @@ var mysql = require("mysql");
 // // });
 
 
+var Orm = require("./config/orm.js");
+var orm = new Orm();
+
+app.get("/api/burger", function(req, res) {
+    orm.selectAll(res);
+});
+
+app.post("/api/burger", function(req, res) {
+    orm.insertOne(req, res);
+});
+
+app.put("/api/burger", function(req, res) {
+    console.log(req.body);
+    orm.updateOne(req, res);
+});
+
 var uneatenBurgers = 
 [
   {
