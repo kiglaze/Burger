@@ -1,0 +1,35 @@
+{
+  "name": "burger",
+  "version": "1.0.0",
+  "description": "Uses Handlebars for template html files, and Express and Node JS. Allows user to add burgers they would like to eat through a frontend application, then have the option to 'eat' them. Burger data is stored in database.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kiglaze/burger.git"
+  },
+  "keywords": [
+    "burger",
+    "Handlebars",
+    "template",
+    "Node",
+    "Express",
+    "input",
+    "mysql"
+  ],
+  "author": "Kristin Iris Glaze",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kiglaze/burger/issues"
+  },
+  "homepage": "https://github.com/kiglaze/burger#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.1",
+    "express-handlebars": "^3.0.0",
+    "mysql": "^2.14.1"
+  }
+}
