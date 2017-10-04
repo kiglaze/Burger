@@ -6,8 +6,9 @@
   <section class="burgers-list uneaten">
     <ul>
       {{#each uneatenBurgers }}
-        <li>
+        <li data-burger-id="{{this.id}}">
         <p>{{this.burger_name}}</p>
+        <button class="devour-button" data-burger-id="{{this.id}}">Devour it!</button>
         </li>
       {{/each}}
     </ul>
@@ -25,7 +26,7 @@
         <input type="text" id="burger-entry" name="burger-entry">
       </div>
 
-      <button type="submit">Submit</button>
+      <button type="submit" name="submit-burger">Submit</button>
     </form>
   </section>
 
